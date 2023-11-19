@@ -1,10 +1,13 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Docente } from '../models/docente.model';
 import { AppSettings } from '../app.settings';
 
 const baseUrl =  AppSettings.API_ENDPOINT + "/crudDocente";
+// url consulta de API desde el backend
+const baseUrlConsulta =  AppSettings.API_ENDPOINT + "/consultaDocente";
+
 @Injectable({
   providedIn: 'root'
 })
@@ -27,5 +30,17 @@ export class DocenteService {
   elimina(idDocente:number):Observable<any>{
       return this.http.delete(baseUrl + "/eliminaDocente/"+ idDocente);
   }
+
+  // Consulta :
+    consultaDinamica(nombre:string,dni:string,estado:number,idUbigeo:number):Observable<Docente[]>{
+      const params = new HttpParams()
+      .set("nombre", nombre )
+      .set("dni", dni)
+      .set("estado", estado)
+      .set("idUbigeo", idUbigeo);
+      
+      return  this.http.get<Docente[]>(baseUrlConsulta +"/consultaDocentePorParametros", {params}); 
+    }  
+  
 
 }

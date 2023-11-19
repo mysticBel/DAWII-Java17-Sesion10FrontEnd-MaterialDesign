@@ -1,5 +1,7 @@
 import { Component, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatTableDataSource } from '@angular/material/table';
+import { Docente } from 'src/app/models/docente.model';
 import { Ubigeo } from 'src/app/models/ubigeo.model';
 import { DocenteService } from 'src/app/services/docente.service';
 import { UbigeoService } from 'src/app/services/ubigeo.service';
@@ -60,5 +62,22 @@ displayedColumns = ["idDocente","nombre","dni","fecha","hora","estado","ubigeo"]
       this.selDistrito = -1;
   }
   
+  // Metodo para la consulta en el boton Filtrar
+  consulta(){
+
+    console.log(">>> nombre >> " + this.nombre);
+    console.log(">>> dni >> " + this.dni);
+    console.log(">>> estado >> " + this.estado);
+    console.log(">>> idUbigeo >> " + this.selDistrito);
+
+    this.docenteService.consultaDinamica(this.nombre,this.dni,this.estado?1:0,this.selDistrito).subscribe(
+        x => {
+          //Actualizamos el Datasource de la grilla
+          this.dataSource = new MatTableDataSource<Docente>(x);
+          this.dataSource.paginator = this.paginator; 
+        }
+    );
+}
+
 
 }

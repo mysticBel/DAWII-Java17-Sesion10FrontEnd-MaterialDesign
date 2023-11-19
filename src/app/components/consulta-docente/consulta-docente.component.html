@@ -15,10 +15,10 @@
               <input  matInput  [(ngModel)] = "dni" >
           </mat-form-field>
           
-          <mat-checkbox class="example-margin"checked  class="col-3"  >Estado
+          <mat-checkbox class="example-margin"checked  class="col-3"  [(ngModel)]= "estado" >Estado
           </mat-checkbox>
 
-          <button mat-raised-button type="submit" color="primary" >Filtrar</button>
+          <button mat-raised-button type="submit" color="primary" (click)="consulta()">Filtrar</button>
            
      </div>
 
