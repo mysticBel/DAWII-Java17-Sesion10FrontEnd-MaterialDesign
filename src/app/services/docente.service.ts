@@ -15,10 +15,12 @@ export class DocenteService {
  
   constructor(private http:HttpClient) { }
  
+  // por un campo (filtro)
   consultaPorNombre(filtro:string):Observable<Docente[]>{
       return  this.http.get<Docente[]>(baseUrl +"/listaDocentePorNombreLike/"+filtro); 
   }  
 
+  // para un json osea un objeto : obj
   inserta(obj:Docente):Observable<any>{
       return this.http.post(baseUrl +"/registraDocente", obj);
   }
@@ -32,6 +34,7 @@ export class DocenteService {
   }
 
   // Consulta :
+  // para varios campos , se envia:  params
     consultaDinamica(nombre:string,dni:string,estado:number,idUbigeo:number):Observable<Docente[]>{
       const params = new HttpParams()
       .set("nombre", nombre )
